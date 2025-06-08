@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Đáp Án Anh Văn 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Ensure long answer texts wrap nicely */
+        .answer-text {
+            word-break: break-word; /* Helps break long words */
+            white-space: pre-line; /* Respects newlines in the text data */
+        }
+
+        /* Cải thiện hiệu ứng cho thông báo */
+        #copy-feedback {
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        /* Hiệu ứng highlight cho mục được sao chép */
+        .copied-item-highlight {
+            background-color: #e0e7ff !important; /* Một màu xanh nhạt (indigo-100) */
+            transition: background-color 0.2s ease-in-out;
+        }
+        .answer-image {
+            max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
+            height: auto; /* Giữ tỷ lệ khung hình */
+            border-radius: 0.5rem; /* bo góc cho hình ảnh */
+            margin-top: 0.5rem; /* Thêm khoảng cách phía trên nếu cần */
+        }
+
+        /* Styling for Unit Wrappers */
+        .unit-wrapper {
+            border: 1px solid #d1d5db; /* gray-300 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 2rem; /* mb-8 */
+            background-color: #f9fafb; /* gray-50 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+        .unit-title {
+            font-size: 1.875rem; /* text-3xl */
+            font-weight: 700; /* font-bold */
+            color: #4f46e5; /* indigo-600 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            padding-bottom: 0.75rem; /* pb-3 */
+            border-bottom: 2px solid #6366f1; /* indigo-500 */
+            text-align: center;
+        }
+        .section-wrapper {
+             background-color: #ffffff; /* white */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8 antialiased">
+    <div class="container mx-auto max-w-3xl">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-indigo-600">Đáp án Anh văn 1</h1>
+            <p class="text-gray-600 mt-2">Nhấn nút "Sao chép" để sao chép đáp án vào clipboard.</p>
+        </header>
+
+        <main id="units-container" class="space-y-12">
+            <!-- Nội dung các Unit sẽ được chèn vào đây bởi JavaScript -->
+        </main>
+
+        <footer class="mt-12 text-center text-sm text-gray-500">
+            <p>&copy; 2025 Trang Đáp Án. Tạo bởi Anh Kiệt</p>
+        </footer>
+    </div>
+
+    <!-- Thông báo sao chép -->
+    <div id="copy-feedback" class="fixed bottom-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-xl text-sm opacity-0 transform translate-y-3 transition-all duration-300 ease-out">
+        Đã sao chép vào clipboard!
+    </div>
+
+    <script>
+        // Dữ liệu đáp án được cấu trúc theo Unit
+        const allUnitsData = [
+            // UNIT 7 DATA
+            {
+                unitName: "Unit 7",
+                sections: [
+                    {
+                        sectionTitle: "7a | Vocabulary extra | Exercise 1",
+                        answers: [
+                            { id: "1", text: "d" }, { id: "2", text: "b" }, { id: "3", text: "a" }, { id: "4", text: "c" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "6 million" }, { id: "2", text: "3.5" }, { id: "3", text: "15,000" },
+                            { id: "4", text: "200,000" }, { id: "5", text: "1,000" }, { id: "6", text: "13,000" }, { id: "7", text: "1,500" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "are longer than any other bird" }, { id: "2", text: "are more dangerous and difficult" },
+                            { id: "3", text: "is colder than other parts of the world" }, { id: "4", text: "for longer than two hours" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "longer than" }, { id: "2", text: "more dangerous and difficult." },
+                            { id: "3", text: "colder than" }, { id: "4", text: "longer than" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "shorter" }, { id: "2", text: "easier" }, { id: "3", text: "bigger" }, { id: "4", text: "busier" },
+                            { id: "5", text: "cheaper" }, { id: "6", text: "sadder" }, { id: "7", text: "wetter" }, { id: "8", text: "nicer" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "cheaper" }, { id: "2", text: "hotter" }, { id: "3", text: "more expensive" }, { id: "4", text: "faster" },
+                            { id: "5", text: "safer" }, { id: "6", text: "older" }, { id: "7", text: "better" }, { id: "8", text: "worse" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "My brother is shorter than me." }, { id: "2", text: "Walking is slower than cycling." },
+                            { id: "3", text: "I think rock climbing is more difficult than surfing." }, { id: "4", text: "Giraffes are taller than elephants." },
+                            { id: "5", text: "Camping is cheaper than staying in a hotel." }, { id: "6", text: "Canada is bigger than Iceland." },
+                            { id: "7", text: "A taxi is more expensive than a public bus." }, { id: "8", text: "Cities are more crowded than towns." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a Pronunciation Exercise 1",
+                        answers: [
+                            { id: "1", text: "My brother is shorter than me." }, { id: "2", text: "Walking is slower than cycling." },
+                            { id: "3", text: "I think rock climbing is more difficult than surfing." }, { id: "4", text: "Giraffes are taller than elephants." },
+                            { id: "5", text: "Camping is cheaper than staying in a hotel." }, { id: "6", text: "Canada is bigger than Iceland." },
+                            { id: "7", text: "A taxi is more expensive than a public bus." }, { id: "8", text: "Cities are more crowded than towns." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "Faster" }, { id: "2", text: "older" }, { id: "3", text: "cheaper" }, { id: "4", text: "more expensive" },
+                            { id: "5", text: "hotter" }, { id: "6", text: "better" }, { id: "7", text: "easier" }, { id: "8", text: "more beautiful" }, { id: "9", text: "safer" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "bicycle." }, { id: "2", text: "She is taller than him." },
+                            { id: "3", text: "The blue bike is more expensive than the red bike." }, { id: "4", text: "Her book is more interesting than his book." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7a | Grammar | Exercise 7",
+                        answers: [
+                            { id: "1", text: "Karen." }, { id: "2", text: "The Mississippi River is shorter than the Amazon River." },
+                            { id: "3", text: "The Amazon River is longer than the Mississippi River." }, { id: "4", text: "My flat is smaller than your house." },
+                            { id: "5", text: "Your house is bigger than my flat." }, { id: "6", text: "Today, it's hotter in Rome than in London." },
+                            { id: "7", text: "Today, it's colder in London than in Rome." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "fly" }, { id: "2", text: "drive" }, { id: "3", text: "cycle" }, { id: "4", text: "take" },
+                            { id: "5", text: "sail" }, { id: "6", text: "travel" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "A description of seamounts" }, { id: "2", text: "The location of Las Gemelas" },
+                            { id: "3", text: "Starting the DeepSee journey" }, { id: "4", text: "The deepest parts of Las Gemelas" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Reading | Exercise 2",
+                        answers: [
+                            { id: "1", text: "False" }, { id: "2", text: "True" }, { id: "3", text: "False" }, { id: "4", text: "False" },
+                            { id: "5", text: "True" }, { id: "6", text: "True" }, { id: "7", text: "False" }, { id: "8", text: "True" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "shortest" }, { id: "2", text: "easiest" }, { id: "3", text: "biggest" }, { id: "4", text: "slowest" },
+                            { id: "5", text: "cheapest" }, { id: "6", text: "fastest" }, { id: "7", text: "saddest" }, { id: "8", text: "nicest" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "highest" }, { id: "2", text: "best" }, { id: "3", text: "largest." }, { id: "4", text: "shortest" },
+                            { id: "5", text: "most populated" }, { id: "6", text: "furthest" }, { id: "7", text: "easiest" }, { id: "8", text: "busiest" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Vocabulary extra | Exercise 1",
+                        answers: [
+                            {
+                                id: "1",
+                                text: `<img src="https://i.postimg.cc/L4GMQm2x/nh-ch-p-m-n-h-nh-2025-06-04-124114.png" alt="Hình ảnh đáp án" class="answer-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/4A5568?text=Lỗi+tải+ảnh';">`,
+                                isHtml: true
+                            }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "tallest" }, { id: "2", text: "shortest" }, { id: "3", text: "biggest" }, { id: "4", text: "most dangerous" },
+                            { id: "5", text: "longest" }, { id: "6", text: "oldest" }, { id: "7", text: "safest" }, { id: "8", text: "most expensive" },
+                            { id: "9", text: "highest" }, { id: "10", text: "heaviest" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "slowest" }, { id: "2", text: "is hotter than Norway." }, { id: "3", text: "is the hottest country." },
+                            { id: "4", text: "is bigger than the Mediterranean Sea." }, { id: "5", text: "is the biggest" },
+                            { id: "6", text: "is smaller than Russia." }, { id: "7", text: "is the smallest country." },
+                            { id: "8", text: "is faster than a bicycle." }, { id: "9", text: "is the fastest" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "I'm the worst at English in my class." }, { id: "2", text: "I think Brazil is the best football team in the world." },
+                            { id: "3", text: "Snakes are the most dangerous animals in my country." }, { id: "4", text: "I don't think he's a better actor than De Niro." },
+                            { id: "5", text: "Your bags are heavy, but my bag is the heaviest." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7c | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "a bicycle ride around Ho Chi Minh" }, { id: "2", text: "travelling and shopping by boat" },
+                            { id: "3", text: "swimming on an island" }, { id: "4", text: "riding on elephants" }, { id: "5", text: "visiting the towers of Ha Long Bay" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7c | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "biggest" }, { id: "2", text: "fast" }, { id: "3", text: "quiet" }, { id: "4", text: "interesting" },
+                            { id: "5", text: "fantastic beautiful." }, { id: "6", text: "hottest" }, { id: "7", text: "loud happy" }, { id: "8", text: "famous popular" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7c | Word focus | Exercise 1",
+                        answers: [
+                            { id: "1", text: "We like to spend time with my grandparents at the weekend." },
+                            { id: "2", text: "My life's so busy! I never have time to watch TV or read a book." },
+                            { id: "3", text: "You can save a lot of time if you book your tickets online." },
+                            { id: "4", text: "They had a great time on holiday with their friends." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7d | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "hange" }, { id: "2", text: "orrow" }, { id: "3", text: "end" }, { id: "4", text: "pend" },
+                            { id: "5", text: "ay" }, { id: "6", text: "ake ut" }, { id: "7", text: "You can buy stamps from the post office." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7d | Real life | Exercise 1",
+                        answers: [
+                            { id: "1", text: "No" }, { id: "2", text: "Yes" }, { id: "3", text: "No" }, { id: "4", text: "Yes" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7d | Real life | Exercise 2",
+                        answers: [
+                            { id: "1", text: "d" }, { id: "2", text: "e" }, { id: "3", text: "a" }, { id: "4", text: "h" },
+                            { id: "5", text: "b" }, { id: "6", text: "g" }, { id: "7", text: "c" }, { id: "8", text: "f" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "polite" }, { id: "2", text: "impolite" }, { id: "3", text: "polite" }, { id: "4", text: "impolite" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7e | Dictation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "a bicycle ride" }, { id: "2", text: "fifteen kilometres" }, { id: "3", text: "faster" },
+                            { id: "4", text: "very busy" }, { id: "5", text: "lots of cars" }, { id: "6", text: "quieter" },
+                            { id: "7", text: "other animals" }, { id: "8", text: "trees and flowers" }, { id: "9", text: "in the summer" },
+                            { id: "10", text: "hotter" }, { id: "11", text: "hot and tired" }, { id: "12", text: "grandmother" }, { id: "13", text: "cold drinks" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "7e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "The bus was cancelled, so we waited for the next one." },
+                            { id: "2", text: "The flight was cancelled because the weather was terrible." },
+                            { id: "3", text: "The food was hot and spicy, so we drank a litre of water with our meal." },
+                            { id: "4", text: "The meeting was long and boring because the managing director spoke for two hours!" },
+                            { id: "5", text: "The restaurant didn't take credit cards, so I paid with cash." },
+                            { id: "6", text: "The hotel restaurant was closed, so we went into the centre of town for a meal." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 7 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "take" }, { id: "2", text: "go by" }, { id: "3", text: "drive" }, { id: "4", text: "travel" },
+                            { id: "5", text: "both are correct" }, { id: "6", text: "both are correct" }, { id: "7", text: "sails" }, { id: "8", text: "ride" },
+                            { id: "1", text: "comparative adjectives" }, { id: "2", text: "superlative adjectives" }, { id: "3", text: "opposite adjectives" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 7 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "Difficult" }, { id: "2", text: "take take" }, { id: "3", text: "Safe" }, { id: "4", text: "drive" },
+                            { id: "5", text: "Celebration" }, { id: "6", text: "Jungle" }, { id: "7", text: "Cash" }, { id: "8", text: "pay" },
+                            { id: "9", text: "lays" }, { id: "10", text: "smooth" }
+                        ]
+                    }
+                ]
+            },
+            {
+                unitName: "Unit 8",
+                sections: [
+                    {
+                        sectionTitle: "8a | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "hat" }, { id: "2", text: "dress" }, { id: "3", text: "shoes" }, { id: "4", text: "suit" },
+                            { id: "5", text: "shirt" }, { id: "6", text: "belt" }, { id: "7", text: "skirt" }, { id: "8", text: "socks" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "j j" }, { id: "2", text: "s s\ns s" }, { id: "3", text: "t t\nt" }, { id: "4", text: "b b" },
+                            { id: "5", text: "s s" }, { id: "6", text: "o o" }, { id: "7", text: "r r" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "a" }, { id: "2", text: "d" }, { id: "3", text: "b" }, { id: "4", text: "c" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "isn't wearing\n's wearing" }, { id: "2", text: "'s buying\nisn't selling" },
+                            { id: "3", text: "isn't making\n's designing" }, { id: "4", text: "isn't playing\n's reading" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "What's he wearing" }, { id: "2", text: "Is Trisha buying or selling clothes" },
+                            { id: "3", text: "What is Georgio designing" }, { id: "4", text: "Is he playing a computer game" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "comes" }, { id: "2", text: "'re staying" }, { id: "3", text: "take" }, { id: "4", text: "are standing" },
+                            { id: "5", text: "Do know" }, { id: "6", text: "'m walking" }, { id: "7", text: "Are learning" }, { id: "8", text: "Do like" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "having" },
+                            { id: "2", text: "Catherine and Ali are watching TV. They aren't reading." },
+                            { id: "3", text: "Antonio and Julia aren't cooking. They're playing chess." },
+                            { id: "4", text: "Lucia's reading a book. She isn't playing chess." },
+                            { id: "5", text: "Julia isn't watching TV. She's sleeping." },
+                            { id: "6", text: "Mike and Tom aren't reading. They're cooking." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "No, she isn't." }, { id: "2", text: "No, they aren't." },
+                            { id: "3", text: "Is Lucia reading? Yes, she is." }, { id: "4", text: "Yes, they are." },
+                            { id: "5", text: "No, they aren't." }, { id: "6", text: "Yes, he is." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 6 Thứ tự đúng của cuộc hội thoại:",
+                        answers: [
+                            { id: "1", text: "5" }, { id: "2", text: "3" }, { id: "3", text: "9" }, { id: "4", text: "1" },
+                            { id: "5", text: "7" }, { id: "6", text: "6" }, { id: "7", text: "2" }, { id: "8", text: "4" },
+                            { id: "9", text: "10" }, { id: "10", text: "8" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 7",
+                        answers: [
+                            { id: "1", text: "works" }, { id: "2", text: "isn't working\n's reading" },
+                            { id: "3", text: "cycles" }, { id: "4", text: "isn't cycling\nit's raining\n's driving" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 8",
+                        answers: [
+                            { id: "1", text: "live" }, { id: "2", text: "drive, 'm taking" }, { id: "3", text: "'s raining" },
+                            { id: "4", text: "don't smoke" }, { id: "5", text: "Do you like do" }, { id: "6", text: "are you doing 'm writing" },
+                            { id: "7", text: "'s boiling" }, { id: "8", text: "freezes" }, { id: "9", text: "always go" },
+                            { id: "10", text: "rains" }, { id: "11", text: "speak" }, { id: "12", text: "'m watching" },
+                            { id: "13", text: "have" }, { id: "14", text: "'s doing" }, { id: "15", text: "'s watching" },
+                            { id: "16", text: "Do you want" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8a | Grammar | Exercise 9",
+                        answers: [
+                            { id: "1", text: "'m having" }, { id: "2", text: "'m learning" }, { id: "3", text: "starts" },
+                            { id: "4", text: "study" }, { id: "5", text: "have" }, { id: "6", text: "are" },
+                            { id: "7", text: "'m having" }, { id: "8", text: "'m sitting" }, { id: "9", text: "'m eating" },
+                            { id: "10", text: "'m doing" }, { id: "11", text: "are" }, { id: "12", text: "I'm making" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Head" }, { id: "2", text: "Hair" }, { id: "3", text: "Ear" }, { id: "4", text: "Eye" },
+                            { id: "5", text: "Nose" }, { id: "6", text: "Mouth" }, { id: "7", text: "Neck" }, { id: "8", text: "Shoulder" },
+                            { id: "9", text: "Arm" }, { id: "10", text: "Hand" }, { id: "11", text: "Leg" }, { id: "12", text: "Foot" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "foot" }, { id: "2", text: "hand" }, { id: "3", text: "neck" }, { id: "4", text: "back" },
+                            { id: "5", text: "leg" }, { id: "6", text: "shoulder" }, { id: "7", text: "knee" }, { id: "8", text: "arm" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Eyes" }, { id: "2", text: "Head" }, { id: "3", text: "Arms" }, { id: "4", text: "Legs" },
+                            { id: "5", text: "Mouth" }, { id: "6", text: "Body" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Reading | Exercise 2",
+                        answers: [
+                            { id: "1", text: "True" }, { id: "2", text: "True" }, { id: "3", text: "False" }, { id: "4", text: "True" },
+                            { id: "5", text: "True" }, { id: "6", text: "True" }, { id: "7", text: "False" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "have got" }, { id: "2", text: "'re" }, { id: "3", text: "has got" },
+                            { id: "4", text: "is" }, { id: "5", text: "has got" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "He hasn't got any brothers or sisters." }, { id: "2", text: "She's got blue eyes." },
+                            { id: "3", text: "I've got a new computer." }, { id: "4", text: "Our town hasn't got many parks." },
+                            { id: "5", text: "They haven't got any children." }, { id: "6", text: "You've got time for a coffee." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "I've got" }, { id: "2", text: "She's got" }, { id: "3", text: "We haven't got" },
+                            { id: "4", text: "He's got" }, { id: "5", text: "They've got" }, { id: "6", text: "He hasn't got" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "Joe's got a nice house." }, { id: "2", text: "Annika and Ray haven't got a car." },
+                            { id: "3", text: "Have you got a bike?" }, { id: "4", text: "Has Catherine got a sister?" },
+                            { id: "5", text: "We haven't got any children." }, { id: "6", text: "I haven't got a cold. I've got the flu." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "Have got\nthey've got" },
+                            { id: "2", text: "I've got\nHave got\nI haven't" },
+                            { id: "3", text: "Has got\nshe's got\nHas she got" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8c | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "deer" }, { id: "2", text: "zebra" }, { id: "3", text: "lion" },
+                            { id: "4", text: "butterfly" }, { id: "5", text: "chameleon" }, { id: "6", text: "Arctic fox" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8c | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Yes" }, { id: "2", text: "No" }, { id: "3", text: "No" }, { id: "4", text: "Don't know" },
+                            { id: "5", text: "Yes" }, { id: "6", text: "Yes" }, { id: "7", text: "No" }, { id: "8", text: "Don't know" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8c | Word focus | Exercise 1",
+                        answers: [
+                            { id: "1", text: "We like buying new clothes." }, { id: "2", text: "Your new dress is like mine." },
+                            { id: "3", text: "These shoes are like my old ones." }, { id: "4", text: "I don't like my uniform." },
+                            { id: "5", text: "This hat is like a cowboy hat." }, { id: "6", text: "Jason likes wearing jeans." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8c | Word focus | Exercise 2",
+                        answers: [
+                            { id: "1", text: "1, 4 and 6" }, { id: "2", text: "2, 3 and 5" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8d | Real life | Exercise 2",
+                        answers: [
+                            { id: "1", text: "This photo" }, { id: "2", text: "On the right" }, { id: "3", text: "in the middle" },
+                            { id: "4", text: "in front of her" }, { id: "5", text: "The family looks" }, { id: "6", text: "They are wearing" },
+                            { id: "7", text: "I think" }, { id: "8", text: "The photo is interesting" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "2", text: "w" }, { id: "3", text: "d" }, { id: "4", text: "b" }, { id: "5", text: "h" },
+                            { id: "6", text: "k" }, { id: "7", text: "e" }, { id: "8", text: "n" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Don't add" }, { id: "2", text: "Use" }, { id: "3", text: "long" },
+                            { id: "4", text: "one sentence" }, { id: "5", text: "less formal" }, { id: "6", text: "can" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "8e | Writing skill | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Can" }, { id: "2", text: "let's" }, { id: "3", text: "See" }, { id: "4", text: "me" },
+                            { id: "5", text: "meet" }, { id: "6", text: "Well" }, { id: "7", text: "free" }, { id: "8", text: "Bye" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 8 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Put on" }, { id: "2", text: "get up" }, { id: "3", text: "eat out" },
+                            { id: "4", text: "Look at" }, { id: "5", text: "come from" }, { id: "6", text: "call me back" },
+                            { id: "7", text: "Take off" }, { id: "8", text: "look up" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 8 Review | Learning skills | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Transitive" }, { id: "2", text: "Intransitive" }, { id: "3", text: "Intransitive" },
+                            { id: "4", text: "Transitive" }, { id: "5", text: "Transitive" }, { id: "6", text: "Transitive" },
+                            { id: "7", text: "Transitive" }, { id: "8", text: "Transitive" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 8 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "coat" }, { id: "2", text: "T-shirt" }, { id: "3", text: "eyes" }, { id: "4", text: "Legs" },
+                            { id: "5", text: "Dinosaur" }, { id: "6", text: "toy" }, { id: "7", text: "Conjunction" },
+                            { id: "8", text: "formal" }, { id: "9", text: "clown" }
+                        ]
+                    }
+                ]
+            },
+            {
+                unitName: "Unit 9",
+                sections: [
+                    {
+                        sectionTitle: "9a | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Actor -audience- musical" }, { id: "2", text: "Actor-audience-film" },
+                            { id: "3", text: "Artist-painting" }, { id: "4", text: "Audience-music-musicians" },
+                            { id: "5", text: "Fan-team" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "romantic comedy" }, { id: "2", text: "horror" }, { id: "3", text: "documentary" },
+                            { id: "4", text: "animation" }, { id: "5", text: "Science fiction" }, { id: "6", text: "comedy" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Film 1: science fiction" }, { id: "2", text: "Film 2: documentary" },
+                            { id: "3", text: "Film 3: action film" }, { id: "4", text: "Film 4: romantic comedy" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Red" }, { id: "2", text: "Light" }, { id: "3", text: "Come out" }, { id: "4", text: "Food" },
+                            { id: "5", text: "A police officer" }, { id: "6", text: "Gold" }, { id: "7", text: "Fine" }, { id: "8", text: "Oder and beautiful" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "The children are hungry.", text: "They're going to eat lunch." },
+                            { id: "My brother wants to be a film director.", text: "He's going to Hollywood!" },
+                            { id: "Mike and I like to be near the screen.", text: "We're going to sit in the front row." },
+                            { id: "The book is very good.", text: "Steven Spielberg is going to make a film of it." },
+                            { id: "I need some money.", text: "I'm going to get a job." },
+                            { id: "Anousheh has got some money.", text: "She's going to buy our tickets." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "'m going to watch" }, { id: "2", text: "'re going to play" }, { id: "3", text: "'s going to buy" },
+                            { id: "4", text: "'s going to meet" }, { id: "5", text: "'re going to have" }, { id: "6", text: "'re going to make" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Pronunciation | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Te" }, { id: "2", text: "Te" }, { id: "3", text: "Tu" }, { id: "4", text: "Te" },
+                            { id: "5", text: "Tu" }, { id: "6", text: "Te" }, { id: "7", text: "Tu" }, { id: "8", text: "Te" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "He's going to travel around the USA." }, { id: "2", text: "She's going to work in a laboratory." },
+                            { id: "3", text: "They're going to have a holiday in Spain." }, { id: "4", text: "She's going to learn to drive." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 3 (Continued)",
+                        answers: [
+                            { id: "1", text: "Yes, he is." }, { id: "2", text: "Yes, they are." }, { id: "3", text: "No, he isn't." },
+                            { id: "4", text: "Yes, she is." }, { id: "5", text: "No, they aren't." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "Are we going to book" }, { id: "2", text: "is going to drive" },
+                            { id: "3", text: "isn't going to know" }, { id: "4", text: "'s going to meet" }, { id: "5", text: "'s going to" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "are you going to do" }, { id: "2", text: "are going to teach" },
+                            { id: "3", text: "are you going to stay" }, { id: "4", text: "'re going to work" },
+                            { id: "5", text: "are you going to do" }, { id: "6", text: "'m going to travel" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "What are you going to do in the summer?" }, { id: "2", text: "I'm not going to have a holiday." },
+                            { id: "3", text: "I'm going to work in a laboratory." }, { id: "4", text: "What are you going to study?" },
+                            { id: "5", text: "I'm going to study Physics." }, { id: "6", text: "What are you going to do after university?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9a | Grammar | Exercise 7",
+                        answers: [
+                            { id: "1", text: "I'm going to buy a new jacket." }, { id: "2", text: "We're going to leave at three o'clock." },
+                            { id: "3", text: "Maggie is going to get a job in the college." }, { id: "4", text: "They're going to go home after school." },
+                            { id: "5", text: "Is he going to meet us there?" }, { id: "6", text: "When are you going to have lunch?" },
+                            { id: "7", text: "I think it is going to snow tonight." }, { id: "8", text: "Are Jemima and Hugo going to work in an office?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "e" }, { id: "2", text: "c" }, { id: "3", text: "d" }, { id: "4", text: "h" },
+                            { id: "5", text: "a" }, { id: "6", text: "g" }, { id: "7", text: "b" }, { id: "8", text: "f" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "a horror film" }, { id: "2", text: "a quiz show" }, { id: "3", text: "the news" },
+                            { id: "4", text: "a sports programme" }, { id: "5", text: "a wildlife documentary" }, { id: "6", text: "a drama series" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "unny" }, { id: "2", text: "nteresting" }, { id: "3", text: "iolent" },
+                            { id: "4", text: "cary" }, { id: "5", text: "xciting" }, { id: "6", text: "oring" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "borrow this book\nread about film-making" },
+                            { id: "2", text: "download this song\nlisten to it" },
+                            { id: "3", text: "book tickets\nsee a play" },
+                            { id: "4", text: "buy this film\nwatch later" },
+                            { id: "5", text: "evening classes\nlearn French" },
+                            { id: "6", text: "drama school\nstudy acting" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "I'm going to call the waiter", text: "to ask for a menu." },
+                            { id: "He's going to the shops", text: "to buy a present for his wife." },
+                            { id: "She's writing her best friend a text message", text: "to say 'happy birthday'." },
+                            { id: "Let's go to a café", text: "to get a coffee." },
+                            { id: "I'm calling my doctor", text: "to book an appointment." },
+                            { id: "The student waited after the lesson", text: "to speak to his teacher." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Horror, programme, scary, theatre" },
+                            { id: "2", text: "cinema, comedy, fantasy, gallery, interesting" },
+                            { id: "3", text: "exciting" },
+                            { id: "4", text: "animation, documentary" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Dictation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "make his next film" }, { id: "2", text: "to live there for two years" },
+                            { id: "3", text: "to play their new songs" }, { id: "4", text: "to watch a TV documentary" },
+                            { id: "5", text: "to show the artist's most famous paintings" }, { id: "6", text: "to book tickets" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "to see the Queen." }, { id: "2", text: "to buy some meat." },
+                            { id: "3", text: "to learn a language." }, { id: "4", text: "to avoid the traffic." },
+                            { id: "5", text: "to take on holiday." }, { id: "6", text: "to put petrol in the car." },
+                            { id: "7", text: "to see what's for lunch." }, { id: "8", text: "to wear to the party." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "DAY ONE" }, { id: "2", text: "To --" }, { id: "3", text: "DAY TWO" },
+                            { id: "4", text: "--- \tto – to" }, { id: "5", text: "DAY THREE" }, { id: "6", text: "To -- to" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "She's cycling", text: "to get to school." },
+                            { id: "He's at the market", text: "to buy some fish." },
+                            { id: "He's waiting", text: "to catch a bus." },
+                            { id: "You press this button", text: "to take a photograph." },
+                            { id: "They went to the zoo", text: "to see the elephant." },
+                            { id: "They flew into space in 1969", text: "to land on the moon." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9c | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "birds" }, { id: "2", text: "forest" }, { id: "3", text: "fruit" },
+                            { id: "4", text: "kangaroos" }, { id: "5", text: "mountain" }, { id: "6", text: "leaves" },
+                            { id: "7", text: "rock" }, { id: "8", text: "sea" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9c | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "The book" }, { id: "2", text: "The play" }, { id: "3", text: "The film" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9c | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "True" }, { id: "2", text: "False" }, { id: "3", text: "True" }, { id: "4", text: "True" },
+                            { id: "5", text: "False" }, { id: "6", text: "True" }, { id: "7", text: "False" }, { id: "8", text: "True" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9d | Real life | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Do you want" }, { id: "2", text: "would you like to" }, { id: "3", text: "I'd love" },
+                            { id: "4", text: "Are you" }, { id: "5", text: "I'm sorry" }, { id: "6", text: "Let's meet" },
+                            { id: "7", text: "That's" }, { id: "8", text: "See you" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "enthusiastic" }, { id: "2", text: "not enthusiastic" },
+                            { id: "3", text: "enthusiastic" }, { id: "4", text: "not enthusiastic" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9e | Vocabulary extra | Exercise 1",
+                        answers: [
+                            { id: "1", text: "loud." }, { id: "2", text: "worried." }, { id: "3", text: "well." },
+                            { id: "4", text: "old." }, { id: "5", text: "beautiful." }, { id: "6", text: "delicious" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "9e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "sounds" }, { id: "2", text: "tastes" }, { id: "3", text: "feels" },
+                            { id: "4", text: "look" }, { id: "5", text: "smells" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 9 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "student" }, { id: "2", text: "musician" }, { id: "3", text: "writer" },
+                            { id: "4", text: "painter" }, { id: "5", text: "explorer" }, { id: "6", text: "artist" },
+                            { id: "7", text: "director" }, { id: "8", text: "manager" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 9 Review | Learning skills | Exercise 1",
+                        answers: [
+                            { id: "1", text: "watching" }, { id: "2", text: "listen" }, { id: "3", text: "on" },
+                            { id: "4", text: "at" }, { id: "5", text: "much" }, { id: "6", text: "play" },
+                            { id: "7", text: "interesting" }, { id: "8", text: "handsome" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 9 Review | Checkl | Exercise 1",
+                        answers: [
+                            { id: "1", text: "4" }, { id: "2", text: "6" }, { id: "3", text: "7" }, { id: "4", text: "1" },
+                            { id: "5", text: "2" }, { id: "6", text: "3" }, { id: "7", text: "5" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 9 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "Animation" }, { id: "2", text: "romantic comedy" }, { id: "3", text: "drama series" },
+                            { id: "4", text: "violent" }, { id: "5", text: "Flowers Flowers" }, { id: "6", text: "mountain" },
+                            { id: "7", text: "art exhibition art exhibitions" }, { id: "8", text: "Rainforest" }, { id: "9", text: "species species" }
+                        ]
+                    }
+                ]
+            },
+            {
+                unitName: "Unit 10",
+                sections: [
+                    {
+                        sectionTitle: "10a | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Geography" }, { id: "2", text: "Chemistry" }, { id: "3", text: "IT" }, { id: "4", text: "Physics" },
+                            { id: "5", text: "Biology" }, { id: "6", text: "Literature" }, { id: "7", text: "History" }, { id: "8", text: "Mathematics" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Physics" }, { id: "2", text: "Literature" }, { id: "3", text: "IT" },
+                            { id: "4", text: "History" }, { id: "5", text: "Biology" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "c" }, { id: "2", text: "a" }, { id: "3", text: "b" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Ten points each." }, { id: "2", text: "In 1901." }, { id: "3", text: "They are short and long." },
+                            { id: "4", text: "In the first century." }, { id: "5", text: "North and south." }, { id: "6", text: "The blue team." },
+                            { id: "7", text: "Fourteen." }, { id: "8", text: "Twelve." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "'ve learned" }, { id: "2", text: "haven't called" }, { id: "3", text: "'s forgotten" },
+                            { id: "4", text: "hasn't understood" }, { id: "5", text: "'s rained" }, { id: "6", text: "'ve answered" },
+                            { id: "7", text: "haven't had" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "Have you ever used" }, { id: "2", text: "'ve used" }, { id: "3", text: "have you ever made" },
+                            { id: "4", text: "haven't" }, { id: "5", text: "'ve never seen" }, { id: "6", text: "'ve done" },
+                            { id: "7", text: "has" }, { id: "8", text: "has left" }, { id: "9", text: "have pressed" },
+                            { id: "10", text: "Have you switched" }, { id: "11", text: "I haven't" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "a", text: "4" }, { id: "b", text: "5" }, { id: "c", text: "3" }, { id: "d", text: "5" },
+                            { id: "e", text: "3" }, { id: "f", text: "5" }, { id: "g", text: "3" }, { id: "h", text: "4" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Dictation | Exercise 1",
+                        answers: [
+                            { id: "a", text: "I've printed the photos." }, { id: "b", text: "She hasn't sent a letter." },
+                            { id: "c", text: "They've booked tickets." }, { id: "d", text: "Have you ever learned Spanish?" },
+                            { id: "e", text: "No, I haven't." }, { id: "f", text: "Has he sent the email?" },
+                            { id: "g", text: "Yes, he has." }, { id: "h", text: "It hasn't worked today." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "'s combed his hair." }, { id: "2", text: "hasn't combed his hair." },
+                            { id: "3", text: "'s ironed his shirt." }, { id: "4", text: "hasn't ironed his shirt." },
+                            { id: "5", text: "'s cleaned his shoes." }, { id: "6", text: "hasn't cleaned his shoes." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "'ve cleaned" }, { id: "2", text: "'s left" }, { id: "3", text: "haven't finished" },
+                            { id: "4", text: "'ve had" }, { id: "5", text: "haven't done" }, { id: "6", text: "'s tidied" },
+                            { id: "7", text: "'ve bought" }, { id: "8", text: "'s made" }, { id: "9", text: "haven't understood" },
+                            { id: "10", text: "have forgotten" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "I've lost my credit card." }, { id: "2", text: "Julia's borrowed my dictionary." },
+                            { id: "3", text: "Christina's bought a new top." }, { id: "4", text: "The car has stopped." },
+                            { id: "5", text: "I've broken my phone." }, { id: "6", text: "I haven't washed my clothes." },
+                            { id: "7", text: "I've passed my exams!" }, { id: "8", text: "I've found my credit card." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 7",
+                        answers: [
+                            { id: "1", text: "Have you cleaned" }, { id: "2", text: "Have you had" },
+                            { id: "3", text: "Have you combed" }, { id: "4", text: "Have you cleaned" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 8",
+                        answers: [
+                            { id: "1", text: "Have you ever been to Australia?" }, { id: "2", text: "Have you ever ridden a motorbike?" },
+                            { id: "3", text: "Have you ever drunk Red Bull?" }, { id: "4", text: "Have you ever played basketball?" },
+                            { id: "5", text: "Have you ever eaten Greek yoghurt?" }, { id: "6", text: "Have you ever seen a James Bond film?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10a | Grammar | Exercise 9",
+                        answers: [
+                            { id: "1", text: "Have you ever drunk Red Bull?" }, { id: "2", text: "Have you ever played basketball?" },
+                            { id: "3", text: "Have you ever ridden a motorbike?" }, { id: "4", text: "Have you ever been to Australia?" },
+                            { id: "5", text: "Have you ever seen a James Bond film?" }, { id: "6", text: "Have you ever eaten Greek yoghurt?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b Reading Exercise",
+                        answers: [
+                            { id: "1", text: "That's because taxi drivers in London have memorized the whole city." },
+                            { id: "2", text: "For 150 years, they have had to pass this test to become a taxi driver." },
+                            { id: "3", text: "They can only use the map inside their head." },
+                            { id: "4", text: "Scientists believe their training for 'The Knowledge' is the reason for their brains changing." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Study" }, { id: "2", text: "Memorize" }, { id: "3", text: "Forget" },
+                            { id: "4", text: "Test" }, { id: "5", text: "Relax" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "buy" }, { id: "2", text: "bought" }, { id: "3", text: "paid" }, { id: "4", text: "put" },
+                            { id: "5", text: "put" }, { id: "6", text: "sent" }, { id: "7", text: "forget" }, { id: "8", text: "made" },
+                            { id: "9", text: "read" }, { id: "10", text: "win" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "read" }, { id: "2", text: "won" }, { id: "3", text: "buy" }, { id: "4", text: "send" },
+                            { id: "5", text: "put" }, { id: "6", text: "paid" }, { id: "7", text: "forgotten" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "Have" }, { id: "2", text: "studied" }, { id: "3", text: "studied" }, { id: "4", text: "Have" },
+                            { id: "5", text: "taught" }, { id: "6", text: "taught" }, { id: "7", text: "Have" }, { id: "8", text: "learned" },
+                            { id: "9", text: "learned" }, { id: "10", text: "Have" }, { id: "11", text: "written" }, { id: "12", text: "wrote" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "I'm not sure, but I was late." },
+                            { id: "2", text: "No, I haven't. Maybe he's working at home today." },
+                            { id: "3", text: "At my old school. I had a good teacher." },
+                            { id: "4", text: "Yes, I have. I finished yesterday." },
+                            { id: "5", text: "Yes, I've been a few times." },
+                            { id: "6", text: "We've had a lot of extra work this week, so I stayed until 8." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "We've made a cake." }, { id: "2", text: "I left home in 2015." },
+                            { id: "3", text: "They've booked a trip to Rome." }, { id: "4", text: "You went to Rome last year." },
+                            { id: "5", text: "The lesson started 15 minutes ago." }, { id: "6", text: "The film has started." },
+                            { id: "7", text: "Have you ever flown in a plane?" }, { id: "8", text: "Did you see your family at the weekend?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "Did you call" }, { id: "2", text: "hasn't answered" }, { id: "3", text: "Did you buy" },
+                            { id: "4", text: "'ve arranged" }, { id: "5", text: "Have you ever won" }, { id: "6", text: "gave" },
+                            { id: "7", text: "Has your teacher given" }, { id: "8", text: "failed" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10b | Grammar | Exercise 7",
+                        answers: [
+                            { id: "1", text: "Canada" }, { id: "2", text: "Have you ever played rugby?\nYes, I have. I played rugby when I was at school." },
+                            { id: "3", text: "Have you ever eaten curry?\nYes, I have. I ate curry in London last summer." },
+                            { id: "4", text: "Have you ever seen Romeo and Juliet?\nYes, I have. I saw Romeo and Juliet at the Globe Theatre in May." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10c | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "lots of coffee every day." }, { id: "2", text: "my teeth twice a day." },
+                            { id: "3", text: "your fingernails!" }, { id: "4", text: "in the shower." },
+                            { id: "5", text: "your phone all the time." }, { id: "6", text: "smoking." },
+                            { id: "7", text: "spoonfuls of sugar in my tea." }, { id: "8", text: "the same newspaper every morning." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10c | Word focus | Exercise 1", // First instance
+                        answers: [
+                            { id: "1", text: "et" }, { id: "2", text: "ive" }, { id: "3", text: "ake" },
+                            { id: "4", text: "o" }, { id: "5", text: "ress" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10c | Word focus | Exercise 1 ", // Second instance with context (note the space at the end of title)
+                        answers: [
+                            { id: "What time do you normally get up?", text: "At about seven." },
+                            { id: "When did you give up smoking?", text: "About five years ago, but I still think about it!" },
+                            { id: "Do you use an alarm clock to wake up in the morning?", text: "Yes, I really need it!" },
+                            { id: "How often does the price of petrol go up?", text: "Twice a year, I think." },
+                            { id: "Are you going to dress up for the party tonight?", text: "No, I don't think so, it's informal." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10d | Real life | Exercise 1",
+                        answers: [
+                            { id: "1", text: "AGA" }, { id: "2", text: "Cologne" }, { id: "3", text: "Insel" },
+                            { id: "4", text: "021 8834 50" }, { id: "5", text: "Prices" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10d | Real life | Exercise 2",
+                        answers: [
+                            { id: "1", text: "g" }, { id: "2", text: "b" }, { id: "3", text: "d" }, { id: "4", text: "e" },
+                            { id: "5", text: "a" }, { id: "6", text: "h" }, { id: "7", text: "c" }, { id: "8", text: "f" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "three" }, { id: "2", text: "Insel" }, { id: "3", text: "A" },
+                            { id: "4", text: "afternoon" }, { id: "5", text: "seven" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10e | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "@:", text: "at" }, { id: ".com:", text: "dot com" }, { id: "/:", text: "slash" },
+                            { id: "_:", text: "dash" }, { id: "www.:", text: "www.dot" }, { id: "//:", text: "double slash" },
+                            { id: "::", text: "colon" }, { id: ".org:", text: "dot org" }, { id: "-:", text: "underscore" },
+                            { id: ".co.uk:", text: "dot co dot uk" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10e | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "h_schmitt@hotmail.co.de" }, { id: "2", text: "www.concordia.com" },
+                            { id: "3", text: "www.instolisten.org/dailypod-2" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "10e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Call Stacey back." }, { id: "2", text: "Send everyone a letter." },
+                            { id: "3", text: "Take Mr D'Souza to the station." }, { id: "4", text: "Book a table for two." },
+                            { id: "5", text: "Buy more paper." }, { id: "6", text: "Print these photographs, please." },
+                            { id: "7", text: "Email the designs to g_rich@gmail.com." }, { id: "8", text: "Telephone the hotel." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 10 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Send" }, { id: "2", text: "Study" }, { id: "3", text: "Memorize" },
+                            { id: "4", text: "Search" }, { id: "5", text: "Show" }, { id: "6", text: "Find" },
+                            { id: "7", text: "Call" }, { id: "8", text: "Stop working" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 10 Review | Wordbuilding | Exercise 2",
+                        answers: [
+                            { id: "forget", text: "remember" }, { id: "take", text: "leave" },
+                            { id: "teach", text: "learn" }, { id: "receive", text: "send" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 10 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "Chemistry" }, { id: "2", text: "Professional" }, { id: "3", text: "Teach" },
+                            { id: "4", text: "Win-win" }, { id: "5", text: "brush your teeth" }, { id: "6", text: "habit" },
+                            { id: "7", text: "Tone" }, { id: "8", text: "Website" }, { id: "9", text: "Urgent" }
+                        ]
+                    }
+                ]
+            },
+            {
+                unitName: "Unit 11",
+                sections: [
+                     {
+                        sectionTitle: "11a | Vocabulary extra | Exercise 1",
+                        answers: [
+                            { id: "1", text: "camping" }, { id: "2", text: "sightseeing" },
+                            { id: "3", text: "backpacking" }, { id: "4", text: "hiking" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "weather" }, { id: "2", text: "road travel" }, { id: "3", text: "visas" },
+                            { id: "4", text: "language" }, { id: "5", text: "money and currency" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "visa" }, { id: "2", text: "left" }, { id: "3", text: "multi-cultural" }, { id: "4", text: "dollar" },
+                            { id: "5", text: "climate" }, { id: "6", text: "temperature" }, { id: "7", text: "licence" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "don’t have to" }, { id: "2", text: "can" }, { id: "3", text: "can't" },
+                            { id: "4", text: "don't have to" }, { id: "5", text: "can't" }, { id: "6", text: "can" },
+                            { id: "7", text: "can’t" }, { id: "8", text: "can" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "do" }, { id: "2", text: "have to" }, { id: "3", text: "don't have to" }, { id: "4", text: "can" },
+                            { id: "5", text: "Can" }, { id: "6", text: "can't" }, { id: "7", text: "have to" }, { id: "8", text: "don't have to" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Dictation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "flight DL3345 have to go to" }, { id: "2", text: "You cannot carry" },
+                            { id: "3", text: "in your bag" }, { id: "4", text: "in business class do not have to wait in" },
+                            { id: "5", text: "with children can get on the plane" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Pronunciation | Exercise 1",
+                        answers: [
+                            {
+                                id: "1",
+                                text: `<img src="https://i.postimg.cc/sfZDfpqW/nh-ch-p-m-n-h-nh-2025-06-05-231937.png" alt="Hình ảnh đáp án phát âm" class="answer-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/E2E8F0/4A5568?text=Lỗi+tải+ảnh';">`,
+                                isHtml: true
+                            }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "can" }, { id: "2", text: "don't have to" }, { id: "3", text: "have to" },
+                            { id: "4", text: "have to" }, { id: "5", text: "can't" }, { id: "6", text: "have to" },
+                            { id: "7", text: "don't have to" }, { id: "8", text: "have to" }, { id: "9", text: "can't" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "have to" }, { id: "2", text: "Do" }, { id: "3", text: "have to" }, { id: "4", text: "do" },
+                            { id: "5", text: "Do" }, { id: "6", text: "have to" }, { id: "7", text: "have to" }, { id: "8", text: "have to" },
+                            { id: "9", text: "Does" }, { id: "10", text: "have to" }, { id: "11", text: "Does" },
+                            { id: "12", text: "has to" }, { id: "13", text: "has to" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "smoke" }, { id: "2", text: "doesn't have to clear the tables." },
+                            { id: "3", text: "has to clear the tables" }, { id: "4", text: "and Macy have to wear a uniform" },
+                            { id: "5", text: "doesn't have to serve the customers." }, { id: "6", text: "has to serve the customers" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "return ticket" }, { id: "2", text: "sightseeing" },
+                            { id: "3", text: "check in, carry on" }, { id: "4", text: "rent" }, { id: "5", text: "tour guide" },
+                            { id: "6", text: "souvenirs" }, { id: "7", text: "book" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Yes" }, { id: "2", text: "Yes" }, { id: "3", text: "Don't know" }, { id: "4", text: "No" },
+                            { id: "5", text: "Don't know" }, { id: "6", text: "Yes" }, { id: "7", text: "Yes" }, { id: "8", text: "No" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Word focus | Exercise 1",
+                        answers: [
+                            { id: "Can you take", text: "your camera with you on holiday?" },
+                            { id: "Let's take", text: "a taxi to the airport. It's faster." },
+                            { id: "It's time to take", text: "a very long holiday!" },
+                            { id: "Why didn't you take", text: "your umbrella?" },
+                            { id: "we should take", text: "a phrase book." },
+                            { id: "The only way to visit the Antarctic is to", text: "take a cruise" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "should" }, { id: "2", text: "shouldn't" }, { id: "3", text: "should" },
+                            { id: "4", text: "should" }, { id: "5", text: "shouldn't" }, { id: "6", text: "should" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "You should book a hotel room." }, { id: "2", text: "He shouldn't work late." },
+                            { id: "3", text: "Should we buy a ticket here?" }, { id: "4", text: "She should check in her bag." },
+                            { id: "5", text: "You shouldn't rent a car." }, { id: "6", text: "What should we eat?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Writing | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Should rent a car or go by public transport" }, { id: "2", text: "What should I see there?" },
+                            { id: "3", text: "And should I book my hotel in advance?" }, { id: "4", text: "Should I bring lots of clothes?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "That's not true. You shouldn't smoke." }, { id: "2", text: "That's true." },
+                            { id: "3", text: "That's true." }, { id: "4", text: "That's not true. You shouldn't drink a lot of coffee." },
+                            { id: "5", text: "That's not true. You shouldn't work twelve hours a day." }, { id: "6", text: "That's not true. You should go on holiday." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "You should buy it." }, { id: "2", text: "You shouldn't buy them." },
+                            { id: "3", text: "You should buy them." }, { id: "4", text: "You shouldn't buy it." },
+                            { id: "5", text: "You should buy it." }, { id: "6", text: "You shouldn't buy them." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "should" }, { id: "2", text: "should" }, { id: "3", text: "shouldn't" },
+                            { id: "4", text: "should" }, { id: "5", text: "should" }, { id: "6", text: "should" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11b | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "I think you should buy those shoes." }, { id: "2", text: "They shouldn't pay that much money!" },
+                            { id: "3", text: "Rita should ask me first." }, { id: "4", text: "Should we leave now or later?" },
+                            { id: "5", text: "Gerald should do more exercise." }, { id: "6", text: "What should he do about the problem?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Greece" }, { id: "2", text: "South Korea" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Listening | Exercise 2",
+                        answers: [
+                            { id: "First country", text: "Do\nDo\nDon't\nDo" },
+                            { id: "Second country", text: "Don't\nDon't\nDo\nDo" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "thing" }, { id: "2", text: "where" }, { id: "3", text: "body" }, { id: "4", text: "thing" },
+                            { id: "5", text: "body" }, { id: "6", text: "where" }, { id: "7", text: "thing" }, { id: "8", text: "body" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "anybody" }, { id: "2", text: "something" }, { id: "3", text: "nowhere" }, { id: "4", text: "anything" },
+                            { id: "5", text: "Nobody" }, { id: "6", text: "somewhere" }, { id: "7", text: "Somebody" }, { id: "8", text: "anything" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 3",
+                        answers: [
+                            { id: "1", text: "thing" }, { id: "2", text: "thing" }, { id: "3", text: "where" }, { id: "4", text: "body" },
+                            { id: "5", text: "body" }, { id: "6", text: "where" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "anybody" }, { id: "2", text: "anywhere" }, { id: "3", text: "something" }, { id: "4", text: "somebody" },
+                            { id: "5", text: "anything" }, { id: "6", text: "nothing" }, { id: "7", text: "somewhere" }, { id: "8", text: "anywhere" },
+                            { id: "9", text: "somewhere" }, { id: "10", text: "nowhere" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "There isn't anybody in the house." }, { id: "2", text: "There's nothing to do." },
+                            { id: "3", text: "There isn't anywhere to go." }, { id: "4", text: "There isn't anything on TV." },
+                            { id: "5", text: "There's nobody I want to phone." }, { id: "6", text: "There's nowhere worse than here." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11c | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "something" }, { id: "2", text: "anything" }, { id: "3", text: "nọthing" }, { id: "4", text: "anything" },
+                            { id: "5", text: "somebody" }, { id: "6", text: "nobody" }, { id: "7", text: "anywhere" }, { id: "8", text: "somewhere" },
+                            { id: "9", text: "anything" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11d | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "False" }, { id: "2", text: "True" }, { id: "3", text: "True" }, { id: "4", text: "False" },
+                            { id: "5", text: "True" }, { id: "6", text: "True" }, { id: "7", text: "True" }, { id: "8", text: "False" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11d | Real life | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Can I make a suggestion?" }, { id: "2", text: "You should go to Morocco." },
+                            { id: "3", text: "You could travel on your own." }, { id: "4", text: "Why don't you go with a tour?" },
+                            { id: "5", text: "How about going on a package holiday?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11d | Real life | Exercise 2",
+                        answers: [
+                            { id: "A. You should go to Morocco.", text: "That's a really good idea." },
+                            { id: "B. You could travel on your own.", text: "Yes, but I'd like to meet people as well." },
+                            { id: "C. Why don't you go with a tour?", text: "Maybe you're right." },
+                            { id: "D. How about going on a package holiday?", text: "But the disadvantage is that it's more expensive." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "/ʌ/" }, { id: "2", text: "/ʊ/" }, { id: "3", text: "/uː/" }, { id: "4", text: "/ʌ/" },
+                            { id: "5", text: "/ʊ/" }, { id: "6", text: "/uː/" }, { id: "7", text: "/uː/" }, { id: "8", text: "/ʊ/" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Did" }, { id: "2", text: "Was" }, { id: "3", text: "How many" }, { id: "4", text: "How" },
+                            { id: "5", text: "Would" }, { id: "6", text: "Were" }, { id: "7", text: "What" }, { id: "8", text: "Why" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "11e | Writing skill | Exercise 2",
+                        answers: [
+                            { id: "Did you use room service?", text: "No, I didn't." },
+                            { id: "Was the food of a high standard?", text: "Yes, fairly high." },
+                            { id: "How many nights did you stay at the hotel?", text: "Two" },
+                            { id: "How easy was it to park near the airport?", text: "It was very easy." },
+                            { id: "Would you recommend this sports centre to friends?", text: "Yes, I would." },
+                            { id: "Were our staff friendly and polite?", text: "Yes, they were." },
+                            { id: "What other suggestions can you make?", text: "You should have a car park at the hotel." },
+                            { id: "Why did you choose our restaurant?", text: "Because it was in a nice location and I like Chinese food." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "manager" }, { id: "2", text: "photograph" }, { id: "3", text: "photographer" },
+                            { id: "4", text: "study" }, { id: "5", text: "backpacker" }, { id: "6", text: "visit" },
+                            { id: "7", text: "visitor" }, { id: "8", text: "cook" }, { id: "9", text: "design" }, { id: "10", text: "designer" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Wordbuilding | Exercise 2",
+                        answers: [
+                            { id: "1", text: "manage" }, { id: "2", text: "photograph" }, { id: "3", text: "student" },
+                            { id: "4", text: "backpack" }, { id: "5", text: "visitor" }, { id: "6", text: "cooker" },
+                            { id: "7", text: "designer" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Learning Skills | Exercise 1 (Pronunciation - Syllables)",
+                        answers: [
+                            { id: "photograph", text: "3" }, { id: "photo", text: "2" }, { id: "photographer", text: "4" },
+                            { id: "backpack", text: "2" }, { id: "backpacker", text: "3" }, { id: "visit", text: "2" },
+                            { id: "visitor", text: "3" }, { id: "study", text: "2" }, { id: "student", text: "2" },
+                            { id: "cook", text: "1" }, { id: "cooker", text: "2" }, { id: "design", text: "2" }, { id: "designer", text: "3" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Learning Skills | Exercise 1 (Pronunciation - Stressed Syllable)",
+                        answers: [
+                            { id: "1", text: "pho" }, { id: "2", text: "pho" }, { id: "3", text: "to" }, { id: "4", text: "back" },
+                            { id: "5", text: "back" }, { id: "6", text: "vi" }, { id: "7", text: "vi" }, { id: "8", text: "stu" },
+                            { id: "9", text: "stu" }, { id: "10", text: "cook" }, { id: "11", text: "cook" }, { id: "12", text: "sign" }, { id: "13", text: "sign" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Check | Exercise 1",
+                        answers: [
+                            { id: "'I want to see buildings from the Renaissance'", text: "Florence in Italy" },
+                            { id: "'I'd like to walk through the jungle.'", text: "Malaysia" },
+                            { id: "\"We're going hiking in the Andes\"", text: "South America" },
+                            { id: "'I've never seen the desert'", text: "Jordan" },
+                            { id: "'I'd like to see the famous opera house'", text: "Sydney in Australia" },
+                            { id: "'I want to go somewhere with nobody living there'", text: "Antarctica" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 11 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "Camping" }, { id: "2", text: "Multicultural" }, { id: "3", text: "Book" },
+                            { id: "4", text: "in advance" }, { id: "5", text: "Tourism" }, { id: "6", text: "Destination" },
+                            { id: "7", text: "Brochure" }, { id: "8", text: "Helpful" }, { id: "9", text: "suggestion" }
+                        ]
+                    }
+                ]
+            },
+            {
+                unitName: "Unit 12",
+                sections: [
+                    {
+                        sectionTitle: "12a | Vocabulary extra | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Arctic Circle" }, { id: "2", text: "North Pole" }, { id: "3", text: "Northern hemisphere" },
+                            { id: "4", text: "Equator" }, { id: "5", text: "Antarctic Circle" }, { id: "6", text: "South Pole" },
+                            { id: "7", text: "Southern hemisphere" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "The area of Antarctica is", text: "fourteen million square kilometres." },
+                            { id: "Water becomes ice at a temperature below zero", text: "degrees Celsius." },
+                            { id: "The average adult should drink", text: "two point five litres of water per day." },
+                            { id: "Thirty per cent", text: "of the Earth's surface is dry land." },
+                            { id: "The height of the tallest tree on Earth is", text: "one hundred and thirty metres." },
+                            { id: "The weight of the International Space Station (ISS) is", text: "four hundred and nineteen thousand, four hundred and fifty-five kilograms." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Vocabulary | Exercise 2",
+                        answers: [
+                            { id: "1", text: "14,000,000" }, { id: "2", text: "0" }, { id: "3", text: "2.5" },
+                            { id: "4", text: "30" }, { id: "5", text: "130" }, { id: "6", text: "419,455" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Listening | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Prediction 1: travel and tourism" }, { id: "2", text: "Prediction 2: population" },
+                            { id: "3", text: "Prediction 3: technology" }, { id: "4", text: "Prediction 4: food and water" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Listening | Exercise 2",
+                        answers: [
+                            { id: "1", text: "increase" }, { id: "2", text: "Tourists" }, { id: "3", text: "the countryside" },
+                            { id: "4", text: "eight billion" }, { id: "5", text: "30 years" }, { id: "6", text: "become faster" },
+                            { id: "7", text: "Land" }, { id: "8", text: "Positive" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "houses will" }, { id: "2", text: "chilldren won't" },
+                            { id: "3", text: "the winter will" }, { id: "4", text: "people won't" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 2",
+                        answers: [
+                            { id: "1", text: "will" }, { id: "2", text: "will" }, { id: "3", text: "won't" }, { id: "4", text: "will" },
+                            { id: "5", text: "will" }, { id: "6", text: "won't" }, { id: "7", text: "won't" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "'ll" }, { id: "2", text: "'ll" }, { id: "3", text: "will" }, { id: "4", text: "'ll" },
+                            { id: "5", text: "will" }, { id: "6", text: "will" }, { id: "7", text: "'ll" }, { id: "8", text: "'ll" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 3",
+                        answers: [
+                            { id: "2", text: "One day I'll be famous." },
+                            { id: "3", text: "We'll be in Rome tomorrow, so meet us there." },
+                            { id: "4", text: "Will your new girlfriend be at the party?" },
+                            { id: "5", text: "I think John will pass all his exams." },
+                            { id: "6", text: "When will you be eighteen?" },
+                            { id: "7", text: "Who will win: Real Madrid or AC Milan?" },
+                            { id: "8", text: "Don't worry: I'm sure you'll get better." },
+                            { id: "9", text: "Next week it'll be the summer holidays!" },
+                            { id: "10", text: "Do you think it will rain tomorrow?" },
+                            { id: "11", text: "Nobody will be in the office tomorrow, so don't call." },
+                            { id: "12", text: "Will we ever find a cure for cancer?" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "China will become the richest country in the world." },
+                            { id: "2", text: "People will buy everything on the internet." },
+                            { id: "3", text: "The world will get hotter." },
+                            { id: "4", text: "Everybody will speak English." },
+                            { id: "5", text: "Humans will reach Mars in 2030." },
+                            { id: "6", text: "Everybody will live for a hundred years." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "Will" }, { id: "2", text: "will" }, { id: "3", text: "'ll" }, { id: "4", text: "will" },
+                            { id: "5", text: "will" }, { id: "6", text: "won't" }, { id: "7", text: "will" }, { id: "8", text: "'ll" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12a | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "will you be" }, { id: "2", text: "I'll be" }, { id: "3", text: "Will you be" },
+                            { id: "4", text: "I won't" }, { id: "5", text: "I'll be" }, { id: "6", text: "Will you be" },
+                            { id: "7", text: "I'll be" }, { id: "8", text: "I'll be" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Vocabulary | Exercise 1",
+                        answers: [
+                            { id: "1", text: "island" }, { id: "2", text: "Ocean" }, { id: "3", text: "forests" }, { id: "4", text: "mountain" },
+                            { id: "5", text: "Lake" }, { id: "6", text: "Sea" }, { id: "7", text: "River" }, { id: "8", text: "Desert" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Grammar | Exercise 1",
+                        answers: [
+                            { id: "1", text: "the" }, { id: "2", text: "the" }, { id: "3", text: "–" }, { id: "4", text: "–" },
+                            { id: "5", text: "–" }, { id: "6", text: "the" }, { id: "7", text: "–" }, { id: "8", text: "–" },
+                            { id: "9", text: "the" }, { id: "10", text: "–" }, { id: "11", text: "the" }, { id: "12", text: "–" },
+                            { id: "13", text: "the" }, { id: "14", text: "the" }, { id: "15", text: "the" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Grammar | Exercise 2",
+                        answers: [
+                            { id: "Which ocean is Madagascar in?", text: "(Should be 'in')" },
+                            { id: "Where is Lake Vostok?", text: "(Should be 'is')" },
+                            { id: "Where is Mount Ararat?", text: "(Should be 'is')" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Reading | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Felix Baumgartner is a skydiver." },
+                            { id: "2", text: "The balloon was 100 metres tall." },
+                            { id: "3", text: "That’s faster than the speed of sound." },
+                            { id: "4", text: "He jumped 31 kilometres in 1960." },
+                            { id: "5", text: "Felix did a great job.’" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Pronunciation extra | Exercise 1",
+                        answers: [
+                            { id: "Maldive Islands:", text: "Linked" }, { id: "Lake Balaton:", text: "Not linked" },
+                            { id: "Middle East:", text: "Linked" }, { id: "Lake Vostok:", text: "Not linked" },
+                            { id: "Atlantic Ocean:", text: "Linked" }, { id: "Black Forest:", text: "Not linked" },
+                            { id: "Mount Ararat:", text: "Linked" }, { id: "Sahara Desert:", text: "Not linked" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Grammar | Exercise 4",
+                        answers: [
+                            { id: "1", text: "This is Anouk. She's from the Netherlands." },
+                            { id: "2", text: "Sri Lanka is in the Indian Ocean." },
+                            { id: "3", text: "The Earth is 384,000 km from the moon." },
+                            { id: "4", text: "Paris is famous for the Eiffel Tower." },
+                            { id: "5", text: "In the past, the Black Sea was part of the Atlantic Ocean." },
+                            { id: "6", text: "There are twenty-seven countries in the European Union." },
+                            { id: "7", text: "The River Ganges goes through India." },
+                            { id: "8", text: "Slovakia is next to the Czech Republic." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Grammar | Exercise 5",
+                        answers: [
+                            { id: "1", text: "The Taj Mahal is in India." },
+                            { id: "2", text: "The South Pole is in the Antarctic." },
+                            { id: "3", text: "The Panama Canal connects the Pacific Ocean to the Atlantic." },
+                            { id: "4", text: "The Tower of London is in the centre of London." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12b | Grammar | Exercise 6",
+                        answers: [
+                            { id: "1", text: "Incorrect" }, { id: "2", text: "Correct" }, { id: "3", text: "Incorrect" },
+                            { id: "4", text: "Incorrect" }, { id: "5", text: "Incorrect" }, { id: "6", text: "Correct" },
+                            { id: "7", text: "Correct" }, { id: "8", text: "Correct" }, { id: "9", text: "Incorrect" },
+                            { id: "10", text: "Correct" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12c | Vocabulary extra | Exercise 1",
+                        answers: [
+                            { id: "1", text: "star" }, { id: "2", text: "planets" }, { id: "3", text: "orbit" }, { id: "4", text: "surface" },
+                            { id: "5", text: "rock" }, { id: "6", text: "travel" }, { id: "7", text: "decided" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12c | Listening | Exercise 1",
+                        answers: [
+                            { id: "What have astronomers found?", text: "a" },
+                            { id: "How far is it from the Earth?", text: "b" },
+                            { id: "Can humans live on it?", text: "b" },
+                            { id: "Do stars often have more than one planet?", text: "a" },
+                            { id: "What have astronomers found since the nineties?", text: "b" },
+                            { id: "What did astronomers find around a star two thousand light years away?", text: "a" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12c | Word focus | Exercise 1",
+                        answers: [
+                            { id: "1", text: "old" }, { id: "2", text: "high" }, { id: "3", text: "tall" }, { id: "4", text: "well" },
+                            { id: "5", text: "long" }, { id: "6", text: "fast" }, { id: "7", text: "far" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12d | Real life | Exercise 1",
+                        answers: [
+                            { id: "1", text: "c" }, { id: "2", text: "g" }, { id: "3", text: "b" }, { id: "4", text: "a" },
+                            { id: "5", text: "f" }, { id: "6", text: "d" }, { id: "7", text: "e" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12d | Pronunciation | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Today, I'd like to talk about an important day." },
+                            { id: "2", text: "First of all, my country's national day is on 4th July." },
+                            { id: "3", text: "Since then, people have always celebrated this day." },
+                            { id: "4", text: "Nowadays, everyone has a day off." },
+                            { id: "5", text: "Next, families have a big meal together." },
+                            { id: "6", text: "In conclusion, I really think it's important." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "12e | Writing skill | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Everyone invited to New Year's Party!" },
+                            { id: "2", text: "Annual Party at Town Hall on 1st May." },
+                            { id: "3", text: "Huge sale at Big Bed Shop this week." },
+                            { id: "4", text: "Eat delicious sandwiches at Jill's Café." },
+                            { id: "5", text: "Visit www.greenfest.org for details." },
+                            { id: "6", text: "Entrance to disco free." },
+                            { id: "7", text: "Live music and local art at Mayberry Arts Festival." },
+                            { id: "8", text: "Welcome to Midsummer Party at nine." }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 12 Review | Wordbuilding | Exercise 1",
+                        answers: [
+                            { id: "1", text: "Depth" }, { id: "2", text: "Height" }, { id: "3", text: "Weight" },
+                            { id: "4", text: "Length" }, { id: "5", text: "Width" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 12 Review | Wordbuilding | Exercise 2",
+                        answers: [
+                            { id: "1", text: "long\nlength" }, { id: "2", text: "height\nhigh" }, { id: "3", text: "weight\nweigh" },
+                            { id: "4", text: "deep.\ndepth" }, { id: "5", text: "wide.\nwidth" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 12 Review | Wordbuilding | Exercise 3",
+                        answers: [
+                            { id: "1", text: "long" }, { id: "2", text: "hight" }, { id: "3", text: "deep" },
+                            { id: "4", text: "wide" }, { id: "5", text: "weigh" }
+                        ]
+                    },
+                    {
+                        sectionTitle: "Unit 12 Review | Language Game",
+                        answers: [
+                            { id: "1", text: "equator" }, { id: "2", text: "degree-degrees-degrees-degrees-degrees" },
+                            { id: "3", text: "lake" }, { id: "4", text: "River" }, { id: "5", text: "Air" },
+                            { id: "6", text: "Charity" }, { id: "7", text: "Pick - up" }, { id: "8", text: "Invitation" },
+                            { id: "9", text: "environmentally-friendly" }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+
+        const unitsContainer = document.getElementById('units-container');
+        const copyFeedback = document.getElementById('copy-feedback');
+        let feedbackTimeout;
+
+        let synth, reverb;
+        let audioContextStarted = false;
+
+
+        async function startAudioContext() {
+            if (Tone && !audioContextStarted && Tone.context.state !== 'running') {
+                try {
+                    await Tone.start();
+                    console.log('AudioContext đã được khởi động bởi người dùng.');
+                    audioContextStarted = true;
+                } catch (error) {
+                    console.error("Lỗi khi khởi động AudioContext:", error);
+                    return;
+                }
+            }
+            if (audioContextStarted && Tone && Tone.context.state === 'running') {
+                 if (!reverb) {
+                    reverb = new Tone.Reverb({
+                        decay: 1.5,
+                        preDelay: 0.01
+                    }).toDestination();
+                    reverb.wet.value = 0.3;
+                }
+                if (!synth) {
+                    synth = new Tone.Synth({
+                        oscillator: { type: 'sine' },
+                        envelope: {
+                            attack: 0.005,
+                            decay: 0.1,
+                            sustain: 0.1,
+                            release: 0.2,
+                        }
+                    }).connect(reverb);
+                }
+            }
+        }
+
+        async function playCopySound() {
+            await startAudioContext();
+            if (synth && reverb && Tone && Tone.context.state === 'running') {
+                try {
+                    synth.triggerAttackRelease("G4", "8n");
+                } catch (error) {
+                    console.error("Lỗi khi phát âm thanh:", error);
+                }
+            } else {
+                console.warn("Synth hoặc Reverb chưa sẵn sàng hoặc AudioContext chưa chạy.");
+            }
+        }
+
+        function showCopyFeedback() {
+            clearTimeout(feedbackTimeout);
+            copyFeedback.classList.remove('opacity-0', 'translate-y-3');
+            copyFeedback.classList.add('opacity-100', 'translate-y-0');
+            feedbackTimeout = setTimeout(() => {
+                copyFeedback.classList.remove('opacity-100', 'translate-y-0');
+                copyFeedback.classList.add('opacity-0', 'translate-y-3');
+            }, 2000);
+        }
+
+        async function copyToClipboard(text, buttonElement, listItemElement, isHtmlContent = false) {
+            await startAudioContext();
+
+            const originalButtonText = buttonElement.innerHTML;
+            const originalButtonClasses = Array.from(buttonElement.classList);
+
+            buttonElement.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg inline-block mr-1" viewBox="0 0 16 16">
+                    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
+                </svg>
+                Đã chép!`;
+            buttonElement.classList.remove('bg-indigo-500', 'hover:bg-indigo-600');
+            buttonElement.classList.add('bg-green-500', 'cursor-default');
+            buttonElement.disabled = true;
+
+            if (listItemElement) {
+                listItemElement.classList.add('copied-item-highlight');
+            }
+
+            const textToCopy = isHtmlContent ?
+                (new DOMParser().parseFromString(text, 'text/html').body.firstChild.src || text) :
+                text;
+
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopyFeedback();
+                playCopySound();
+            } catch (err) {
+                console.error('Không thể sao chép văn bản: ', err);
+            }
+            document.body.removeChild(textarea);
+
+            setTimeout(() => {
+                buttonElement.innerHTML = originalButtonText;
+                buttonElement.className = '';
+                originalButtonClasses.forEach(cls => buttonElement.classList.add(cls));
+                buttonElement.disabled = false;
+
+                if (listItemElement) {
+                    listItemElement.classList.remove('copied-item-highlight');
+                }
+            }, 1500);
+        }
+
+        function displayAnswers() {
+            if (!unitsContainer) return;
+            unitsContainer.innerHTML = '';
+
+            allUnitsData.forEach(unit => {
+                const unitWrapper = document.createElement('div');
+                unitWrapper.className = 'unit-wrapper';
+
+                const unitTitleElement = document.createElement('h2');
+                unitTitleElement.className = 'unit-title';
+                unitTitleElement.textContent = unit.unitName;
+                unitWrapper.appendChild(unitTitleElement);
+
+                const sectionsContainerForUnit = document.createElement('div');
+                sectionsContainerForUnit.className = 'space-y-8';
+                unitWrapper.appendChild(sectionsContainerForUnit);
+
+
+                unit.sections.forEach(section => {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'section-wrapper bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300';
+
+                    const sectionTitleElem = document.createElement('h3');
+                    sectionTitleElem.className = 'text-xl font-semibold text-indigo-700 mb-4 pb-2 border-b border-indigo-100';
+                    sectionTitleElem.textContent = section.sectionTitle;
+                    sectionDiv.appendChild(sectionTitleElem);
+
+                    const answersList = document.createElement('ul');
+                    answersList.className = 'space-y-2';
+
+                    section.answers.forEach(answer => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'flex flex-col sm:flex-row justify-between sm:items-center py-2 px-3 hover:bg-indigo-50 rounded-lg transition-colors duration-200';
+
+                        const answerContentDiv = document.createElement('div');
+                        answerContentDiv.className = 'flex-grow mb-2 sm:mb-0';
+
+                        const idSpan = document.createElement('span');
+                        idSpan.className = 'font-semibold mr-2 text-indigo-500';
+
+                        if (!isNaN(parseFloat(answer.id)) && isFinite(answer.id)) {
+                            idSpan.textContent = `${answer.id}.`;
+                        } else if (typeof answer.id === 'string' && (answer.id.includes(':') || answer.id.includes("'") || answer.id.toLowerCase().includes('country') || answer.id.toLowerCase().includes('question') || answer.id.toLowerCase().includes('photograph') || answer.id.includes('->') || answer.id.toLowerCase().includes('prediction') || answer.id.toLowerCase().includes('first country') || answer.id.toLowerCase().includes('second country')  )) {
+                            idSpan.textContent = `${answer.id} -> `;
+                        } else if (typeof answer.id === 'string' && /^[a-zA-Z\s.,()']+$/.test(answer.id.split(" -> ")[0]) && !answer.id.includes(':') ) {
+                             idSpan.textContent = `${answer.id} -> `;
+                        } else if (typeof answer.id === 'string' && answer.id.length === 1 && isNaN(answer.id) ) {
+                            idSpan.textContent = `${answer.id}. `;
+                        } else {
+                            idSpan.textContent = `${answer.id} -> `;
+                        }
+
+
+                        answerContentDiv.appendChild(idSpan);
+
+                        const textSpan = document.createElement('span');
+                        textSpan.className = 'text-gray-700 answer-text';
+                        if (answer.isHtml) {
+                            textSpan.innerHTML = answer.text;
+                        } else {
+                            textSpan.textContent = answer.text.trim();
+                        }
+                        answerContentDiv.appendChild(textSpan);
+
+                        listItem.appendChild(answerContentDiv);
+
+                        const copyButton = document.createElement('button');
+                        copyButton.className = 'copy-btn bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-300 transition-all duration-200 ease-in-out self-start sm:self-center';
+                        copyButton.innerHTML = answer.isHtml ? 'Chép URL Ảnh' : 'Sao chép';
+                        copyButton.addEventListener('click', async (event) => {
+                            await copyToClipboard(answer.text, event.currentTarget, listItem, answer.isHtml);
+                        });
+                        listItem.appendChild(copyButton);
+
+                        answersList.appendChild(listItem);
+                    });
+
+                    sectionDiv.appendChild(answersList);
+                    sectionsContainerForUnit.appendChild(sectionDiv);
+                });
+                unitsContainer.appendChild(unitWrapper);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayAnswers();
+            const initialInteractionListener = async () => {
+                await startAudioContext();
+            };
+            document.body.addEventListener('click', initialInteractionListener, { once: true });
+            document.body.addEventListener('touchstart', initialInteractionListener, { once: true });
+        });
+    </script>
+</body>
+</html>
